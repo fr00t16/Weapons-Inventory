@@ -40,12 +40,12 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		    	mysql_format(mysql, query, sizeof(query), "SELECT `WeaponID`, `Ammo` FROM `WeaponData` WHERE `ID` = %d ORDER BY `WeaponID` ASC LIMIT %d, 1", pID[playerid], listitem);
 				weapon = mysql_query(mysql, query);
 				new rows = cache_num_rows();
-				if(rows) 
+				if(rows)
 				{
 		  			new string[64], weapname[32], weaponid, ammo;
 
-		  			cache_get_value_name_int(0, "WeaponID", weaponid);
-		  			cache_get_value_name_int(0, "Ammo", ammo);
+		  			cache_get_field_content_int(0, "WeaponID", weaponid);
+		  			cache_get_field_content_int(0, "Ammo", ammo);
 
 		  			GetWeaponName(weaponid, weapname, sizeof(weapname));
 		  			GivePlayerWeapon(playerid, weaponid,  ammo);
@@ -98,8 +98,8 @@ CMD:takeweapons(playerid, params[])
 	    format(list, sizeof(list), "#\tWeapon Name\tAmmo\n");
 	    for(new i; i < rows; ++i)
 	    {
-	    	cache_get_value_name_int(i, "WeaponID", weaponid);
-	    	cache_get_value_name_int(i, "Ammo", ammo);
+	    	cache_get_field_content_int(i, "WeaponID", weaponid);
+	    	cache_get_field_content_int(i, "Ammo", ammo);
 
 	        format(list, sizeof(list), "%s%d\t%s\t%s\n", list, i+1, WeaponNames(weaponid), convertNumber(ammo));
 	    }
